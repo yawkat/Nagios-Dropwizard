@@ -12,6 +12,22 @@ repositories {
 
 dependencies {
     compile "com.yammer.dropwizard:dropwizard-core:${dropwizardVersion}"
+    compile "commons-lang:commons-lang:2.6"
     testCompile "junit:junit:4.11"
+    testCompile "org.mockito:mockito-all:1.9.5"
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://nexus.berico.us/content/repositories/releases/") {
+                authentication(userName: berico_nexusUsername, password: berico_nexusPassword)
+            }
+            snapshotRepository(url: "http://nexus.berico.us/content/repositories/snapshots/") {
+                authentication(userName: berico_nexusUsername, password: berico_nexusPassword)
+            }
+            pom.groupId = "com.bericotech"
+            pom.artifactId = "dropwizard-nagios"
+        }
+    }
+}

@@ -21,7 +21,7 @@ public abstract class NagiosTimedCheckTask extends NagiosCheckTask {
      * Provide the name of the task.
      * @param name Name of the task.
      */
-    protected NagiosTimedCheckTask(String name) {
+    public NagiosTimedCheckTask(String name) {
         super(name);
     }
 
@@ -67,10 +67,14 @@ public abstract class NagiosTimedCheckTask extends NagiosCheckTask {
 
         ArrayList<PerfDatum> perfData = Lists.newArrayList();
 
-        perfData.add(new PerfDatum(
-                "tte", timeInSeconds, PerfDatum.UOM.Seconds,
-                Conversion.nsToS(getWarningThresholdInNs()),
-                Conversion.nsToS(getCriticalThresholdNs())));
+        perfData.add(
+                PerfDatum
+                    .builder("tte", timeInSeconds)
+                        .criteria(
+                            Conversion.nsToS(getWarningThresholdInNs()),
+                            Conversion.nsToS(getCriticalThresholdNs()))
+                        .build());
+
 
         if (extraPerfData.isPresent()){
 

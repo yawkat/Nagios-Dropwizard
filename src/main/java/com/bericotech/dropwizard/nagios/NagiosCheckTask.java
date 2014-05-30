@@ -24,7 +24,7 @@ public abstract class NagiosCheckTask extends Task {
      * Instantiate with the desired name for the task.
      * @param name Name of the task.
      */
-    protected NagiosCheckTask(String name) { super(name); }
+    public NagiosCheckTask(String name) { super(name); }
 
     /**
      * Given the HTTP request parameters, execute your health check.  Implementations are expected to

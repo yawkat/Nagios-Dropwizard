@@ -30,7 +30,6 @@ import java.util.Collection;
  *
  * @author Raj.Patel - https://code.google.com/p/jsendnsca/
  *         Richard Clayton (Berico Technologies)
- * @since 1.2
  */
 public class MessagePayloadBuilder {
 

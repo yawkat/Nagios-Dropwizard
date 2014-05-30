@@ -80,37 +80,13 @@ public enum Level {
      * @param criticalCriteria Critical Criteria
      * @return Level
      */
-    public static Level evaluate(long currentValue, long warningCriteria, long criticalCriteria){
+    public static Level evaluate(Number currentValue, Number warningCriteria, Number criticalCriteria){
 
-        if (currentValue > criticalCriteria){
-
-            return Level.CRITICAL;
-        }
-        else if (currentValue > warningCriteria){
-
-            return Level.WARNING;
-        }
-
-        return Level.OK;
-    }
-
-    /**
-     * Evaluate the current criteria for it's level.
-     *
-     * This is a really simple helper function for a common evaluation task used with PerfDatum.
-     *
-     * @param currentValue Current Value
-     * @param warningCriteria Warning Criteria
-     * @param criticalCriteria Critical Criteria
-     * @return Level
-     */
-    public static Level evaluate(double currentValue, double warningCriteria, double criticalCriteria){
-
-        if (currentValue > criticalCriteria){
+        if (currentValue.doubleValue() > criticalCriteria.doubleValue()){
 
             return Level.CRITICAL;
         }
-        else if (currentValue > warningCriteria){
+        else if (currentValue.doubleValue() > warningCriteria.doubleValue()){
 
             return Level.WARNING;
         }
