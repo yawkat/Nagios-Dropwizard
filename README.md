@@ -85,7 +85,13 @@ This example can be found here: `src/test/java/com/bericotech/dropwizard/nagios/
 
 Add the `check_dropwizard_task.py` to the Nagios/Icinga plugin directory.
 
-> TODO: add more detailed instructions.
+The `check_dropwizard_task.py` accepts the following command line argument signature:
+
+```
+check_dropwizard_task.py <username> <password> <hostname> <port> <task> [<params>]
+```
+
+`params` is a query string encoded set of parameters (e.g. `p1=v1&p2=v2`).
 
 ## Contributions and Legal Information
 
