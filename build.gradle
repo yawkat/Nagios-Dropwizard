@@ -5,6 +5,22 @@ ext {
     dropwizardVersion = "0.6.2"
 }
 
+configurations {
+    integTest.extendsFrom testRuntime
+    integTestCompile.extendsFrom testCompile
+    integTestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
+    // Note that just declaring this sourceset creates two configurations.
+    integTest {
+        java.srcDir file('src/integration-test/java')
+        resources.srcDir file('src/integration-test/resources')
+        compileClasspath = sourceSets.main.output + sourceSets.test.output + configurations.integTest
+        runtimeClasspath = output + sourceSets.test.output + compileClasspath
+    }
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -15,6 +31,7 @@ dependencies {
     compile "commons-lang:commons-lang:2.6"
     testCompile "junit:junit:4.11"
     testCompile "org.mockito:mockito-all:1.9.5"
+    testCompile "com.yammer.dropwizard:dropwizard-testing:${dropwizardVersion}"
 }
 
 uploadArchives {
@@ -30,4 +47,10 @@ uploadArchives {
             pom.artifactId = "dropwizard-nagios"
         }
     }
+}
+
+task integTest(type:Test){
+    description = "Run integration tests (located in src/integration-test/...)."
+    testClassesDir = sourceSets.integTest.output.classesDir
+    classpath = sourceSets.integTest.runtimeClasspath
 }

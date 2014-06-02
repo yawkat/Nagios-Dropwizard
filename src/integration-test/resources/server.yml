@@ -1,0 +1,20 @@
+checkTasks:
+  - com.berico.dropwizard.nagios.checktasks.PassingTask
+  - com.berico.dropwizard.nagios.checktasks.FailingCriticalTask
+  - com.berico.dropwizard.nagios.checktasks.FailingWarnTask
+  - com.berico.dropwizard.nagios.checktasks.UnknownTask
+  - com.berico.dropwizard.nagios.checktasks.PassingTaskWithPerfData
+  - com.berico.dropwizard.nagios.checktasks.ParameterizedTask
+  - com.berico.dropwizard.nagios.checktasks.ExceptionRaisingTask
+
+wrappedCheckTasks:
+  - com.berico.dropwizard.nagios.checktasks.PassingTask
+  - com.berico.dropwizard.nagios.checktasks.FailingCriticalTask
+  - com.berico.dropwizard.nagios.checktasks.FailingWarnTask
+  - com.berico.dropwizard.nagios.checktasks.UnknownTask
+  - com.berico.dropwizard.nagios.checktasks.PassingTaskWithPerfData
+  - com.berico.dropwizard.nagios.checktasks.ExceptionRaisingTask
+
+http:
+  port: 11111
+  adminPort: 11112

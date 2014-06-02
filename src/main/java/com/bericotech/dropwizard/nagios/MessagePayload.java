@@ -163,8 +163,10 @@ public class MessagePayload {
 
         sb.append(message);
 
-        for (PerfDatum datum : perfData)
+        for (PerfDatum datum : perfData) {
+
             sb.append(" | ").append(datum.toString());
+        }
 
         return sb.toString();
     }
