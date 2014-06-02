@@ -29,7 +29,12 @@ else:
 
 auth = HTTPBasicAuth(username, password)
 
-response = requests.post("http://{0}:{1}/tasks/{2}".format(hostname, port, task), params=params, auth=auth)
+url = "http://{0}:{1}/tasks/{2}".format(hostname, port, task)
+
+if params != None:
+    url = url + "?{0}".format(params)
+
+response = requests.post(url, auth=auth)
 
 if response.status_code > 300:
     # 'UNKNOWN' is expected by the testing framework.  While it's not required by Nagios, it

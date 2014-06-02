@@ -87,11 +87,27 @@ Add the `check_dropwizard_task.py` to the Nagios/Icinga plugin directory.
 
 The `check_dropwizard_task.py` accepts the following command line argument signature:
 
-```
-check_dropwizard_task.py <username> <password> <hostname> <port> <task> [<params>]
-```
+`check_dropwizard_task.py <username> <password> <hostname> <port> <task> [<params>]`
 
-`params` is a query string encoded set of parameters (e.g. `p1=v1&p2=v2`).
+A simple example is found in the integration tests: `PassingTask`:
+
+`python check_dropwizard_task.py admin admin localhost 11112 passing-task`
+
+Which returns:
+
+`OK - success`
+
+`params` is a query string encoded set of parameters (e.g. `p1=v1&p2=v2`).  These parameters will be made available to the task in as entries in the `ImmutableMultimap<String, String>` passed to all `NagiosCheckTask` instances.
+
+For example, in the integration tests, there is a task called `ParameterizedTask`.  This can be executed against a locally launched Dropwizard instance like so:
+
+`python check_dropwizard_task.py admin admin localhost 11112 parameterized-task "p1=value1&p2=value2"`
+
+Which returns:
+
+`OK - success w/ p1=value1 and p2=value2`
+
+Please take note of the use of *quotes* for the parameters.  If you do not, the text after the ampersand (&) will be interpreted by BASH as a separate command.
 
 ## Contributions and Legal Information
 
