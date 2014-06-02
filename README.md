@@ -24,7 +24,7 @@ Access via Maven:
   <dependency>
     <groupId>com.bericotech</groupId>
     <artifactId>dropwizard-nagios</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </dependency>
 </dependencies>
 ```
