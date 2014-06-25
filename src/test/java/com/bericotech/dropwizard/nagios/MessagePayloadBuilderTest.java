@@ -15,7 +15,7 @@ public class MessagePayloadBuilderTest {
         final MessagePayload messagePayload = new MessagePayloadBuilder()
                 .withLevel(Level.CRITICAL)
                 .withMessage("test message")
-                .create();
+                .build();
 
         assertEquals(Level.CRITICAL, messagePayload.getLevel());
         assertEquals("test message", messagePayload.getMessage());
@@ -28,7 +28,7 @@ public class MessagePayloadBuilderTest {
                 .withMessage("test message")
                 .withPerfData(PerfDatum.builder("queue_count", 12).build())
                 .withPerfData(PerfDatum.builder("queue_capacity", 32).criteria(50, 100).minMax(1, 45).build())
-                .create();
+                .build();
 
         assertEquals(Level.CRITICAL, messagePayload.getLevel());
         assertEquals("test message | queue_count=12 | queue_capacity=32;50;100;1;45", messagePayload.getMessage());
@@ -40,12 +40,12 @@ public class MessagePayloadBuilderTest {
         final MessagePayload messagePayload = new MessagePayloadBuilder()
                 .withLevel(Level.OK)
                 .withMessage("test message")
-                .create();
+                .build();
 
         final MessagePayload messagePayload2 = new MessagePayloadBuilder()
                 .withLevel(Level.WARNING)
                 .withMessage("foo message")
-                .create();
+                .build();
 
         assertEquals(Level.OK, messagePayload.getLevel());
         assertEquals("test message", messagePayload.getMessage());

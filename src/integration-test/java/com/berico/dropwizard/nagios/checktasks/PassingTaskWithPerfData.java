@@ -26,6 +26,6 @@ public class PassingTaskWithPerfData extends NagiosCheckTask {
                                 .minMax(54, 108)
                                 .build()
                 )
-                .create();
+                .build();
     }
 }

@@ -85,7 +85,7 @@ public abstract class NagiosTimedCheckTask extends NagiosCheckTask {
                 .withLevel(Level.evaluate(total, getWarningThresholdInNs(), getCriticalThresholdNs()))
                 .withMessage(String.format("%s took %ss;", this.getName(), Conversion.nsToS(total)))
                 .withPerfData(perfData)
-                .create();
+                .build();
     }
 
     /**

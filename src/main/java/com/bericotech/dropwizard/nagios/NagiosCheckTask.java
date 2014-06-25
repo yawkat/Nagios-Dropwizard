@@ -1,5 +1,6 @@
 package com.bericotech.dropwizard.nagios;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMultimap;
 import com.yammer.dropwizard.tasks.Task;
@@ -12,6 +13,9 @@ import java.io.PrintWriter;
  * @author Richard Clayton (Berico Technologies)
  */
 public abstract class NagiosCheckTask extends Task {
+
+    // Jackson ObjectMapper that comes with Dropwizard.
+    private static ObjectMapper om = new ObjectMapper();
 
     /**
      * If an error occurs during the execution of a task, this is the assumed
@@ -56,11 +60,21 @@ public abstract class NagiosCheckTask extends Task {
         } catch (Throwable t){
 
             mp = new MessagePayloadBuilder()
-                    .withLevel(DEFAULT_LEVEL_FOR_TASK_ERROR).withMessage(t.getMessage()).create();
+                    .withLevel(DEFAULT_LEVEL_FOR_TASK_ERROR).withMessage(t.getMessage()).build();
         }
         finally {
 
-            pw.println(mp.getLevel() + " - " + mp.getMessage());
+            Optional<String> output = getParameter(requestParameters, "o");
+
+            // If the requestor desires JSON...
+            if (output.isPresent() && output.get().equalsIgnoreCase("json")){
+
+                om.writeValue(pw, mp);
+
+            } else {
+
+                pw.println(mp.getLevel() + " - " + mp.getMessage());
+            }
         }
     }
 

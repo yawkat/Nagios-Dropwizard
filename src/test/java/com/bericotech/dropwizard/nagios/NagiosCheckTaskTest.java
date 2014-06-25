@@ -25,7 +25,7 @@ public class NagiosCheckTaskTest {
             @Override
             public MessagePayload performCheck(ImmutableMultimap<String, String> requestParameters) throws Throwable {
 
-                return new MessagePayloadBuilder().withLevel(expectedLevel).withMessage(expectedMessage).create();
+                return new MessagePayloadBuilder().withLevel(expectedLevel).withMessage(expectedMessage).build();
             }
         };
 

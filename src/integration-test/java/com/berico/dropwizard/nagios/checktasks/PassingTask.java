@@ -18,6 +18,6 @@ public class PassingTask extends NagiosCheckTask {
     @Override
     public MessagePayload performCheck(ImmutableMultimap<String, String> requestParameters) throws Throwable {
 
-        return new MessagePayloadBuilder().withLevel(Level.OK).withMessage(MESSAGE).create();
+        return new MessagePayloadBuilder().withLevel(Level.OK).withMessage(MESSAGE).build();
     }
 }

@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMultimap;
 import java.util.Random;
 
 /**
- * Demonstrates how to create a NagiosCheckTask.
+ * Demonstrates how to build a NagiosCheckTask.
  *
  * @author Richard Clayton (Berico Technologies)
  */
@@ -44,7 +44,8 @@ public class ExampleNagiosCheckTask extends NagiosCheckTask {
             default: message = "Something went wrong with my thermometer."; break;
         }
 
-        return new MessagePayloadBuilder()
+        return MessagePayload
+                .builder()
                 .withLevel(level)
                 .withMessage(message)
                 .withPerfData(
@@ -52,6 +53,6 @@ public class ExampleNagiosCheckTask extends NagiosCheckTask {
                     .criteria(WARNING_TEMPERATURE, CRITICAL_TEMPERATURE)
                     .build()
                 )
-                .create();
+                .build();
     }
 }

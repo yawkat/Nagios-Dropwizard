@@ -24,6 +24,6 @@ public class ParameterizedTask extends NagiosCheckTask {
 
         String message = String.format(MESSAGE_TEMPLATE, p1, p2);
 
-        return new MessagePayloadBuilder().withLevel(Level.OK).withMessage(message).create();
+        return new MessagePayloadBuilder().withLevel(Level.OK).withMessage(message).build();
     }
 }

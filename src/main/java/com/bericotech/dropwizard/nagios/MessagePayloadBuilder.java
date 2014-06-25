@@ -25,7 +25,7 @@ import java.util.Collection;
  *      .withLevel(Level.CRITICAL)
  *      .withServiceName(&quot;Test Service Name&quot;)
  *      .withMessage(&quot;Test Message&quot;)
- *      .create();
+ *      .build();
  * </pre>
  *
  * @author Raj.Patel - https://code.google.com/p/jsendnsca/
@@ -40,7 +40,7 @@ public class MessagePayloadBuilder {
      *
      * @return the built {@link MessagePayload}
      */
-    public MessagePayload create() {
+    public MessagePayload build() {
         return payload;
     }
 

@@ -228,4 +228,13 @@ public class MessagePayload {
                 .append("perfData", perfData)
                 .toString();
     }
+
+    /**
+     * Provides and instance of a builder used to construct this object.
+     * @return Builder instance.
+     */
+    public static MessagePayloadBuilder builder() {
+
+        return new MessagePayloadBuilder();
+    }
 }

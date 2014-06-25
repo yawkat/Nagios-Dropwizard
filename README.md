@@ -6,6 +6,12 @@ Extends Dropwizard's `Task` component to return Nagios-formatted healthchecks.
 
 The Dropwizard (Yammer/Codahale) `HealthCheck` facility does not provide the granularity we desire.  We really like (nay prefer) the Nagios reporting standard which not only includes four valid service states (OK, WARN, CRITICAL, UNKNOWN), but also allows the output of **Perf Data** (performance data), which are arbitrary metrics specific to a health check.  While we get some of the same capabilities in different ways with Dropwizard's Metrics, we really want the ability to have this all integrated into one solution.
 
+## Release Notes
+
+**1.1.0** Refactored the Nagios check script to be more idiomatic.  Fixed a couple of warts in the model that was representative of the old JSendNSCA project.
+
+**1.0.1** Fixed a dependency issue that was causing the build to fail.
+
 ## Installation
 
 Access via Maven:
@@ -24,9 +30,18 @@ Access via Maven:
   <dependency>
     <groupId>com.bericotech</groupId>
     <artifactId>dropwizard-nagios</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </dependency>
 </dependencies>
+```
+
+Installing the Nagios Check Plugin:
+
+1.  Install the Python dependencies: `pynag` and `requests`:
+
+```
+sudo pip install requests
+sudo pip install pynag
 ```
 
 ## Usage
@@ -46,13 +61,14 @@ public class ExampleNagiosCheckTask extends NagiosCheckTask {
     @Override
     public MessagePayload performCheck(ImmutableMultimap<String, String> requestParameters) throws Throwable {
 
-        return new MessagePayloadBuilder()
+        return MessagePayload
+                .builder()
                 .withLevel(Level.OK)
                 .withMessage("Everything is OK!")
                 .withPerfData(
                     PerfDatum.builder("sproketCount", 42).build()
                 )
-                .create();
+                .build();
     }
 }
 ```

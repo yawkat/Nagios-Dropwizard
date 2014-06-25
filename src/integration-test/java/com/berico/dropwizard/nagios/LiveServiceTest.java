@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 public class LiveServiceTest {
 
     private String PLUGINDIR = System.getProperty("ls.test.pdir", "plugin");
-    private String CHECKSCRIPT = System.getProperty("ls.test.checkscript", "check_dropwizard_task.py");
+    private String CHECKSCRIPT = System.getProperty("ls.test.checkscript", "check_url.py");
 
     private String HOSTNAME = System.getProperty("ls.test.hostname", "localhost");
     private int    PORT     = Integer.parseInt(System.getProperty("ls.test.port", "11112"));
@@ -128,7 +128,7 @@ public class LiveServiceTest {
 
         ProcessResult pr = runNagiosCheckTask(taskName, (params != null)? params : new HashMap<String, String>());
 
-        assertEquals(pr.exitcode, expectedLevel.ordinal());
+        assertEquals(expectedLevel.ordinal(), pr.exitcode);
 
         String[] parts = pr.getStdOut().split("-", 2);
 
@@ -155,12 +155,13 @@ public class LiveServiceTest {
                 .command(
                         "python",
                         CHECKSCRIPT,
-                        USERNAME,
-                        PASSWORD,
-                        HOSTNAME,
-                        Integer.toString(PORT),
-                        task,
-                        paramString);
+                        "-u", USERNAME,
+                        "-p", PASSWORD,
+                        "-H", HOSTNAME,
+                        "-P", Integer.toString(PORT),
+                        "-U", String.format("tasks/%s?%s", task, paramString));
+
+        System.out.println(Joiner.on(" ").join(pb.command()));
 
         Process p = pb.start();
 

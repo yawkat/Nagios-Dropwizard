@@ -18,6 +18,6 @@ public class UnknownTask extends NagiosCheckTask {
     @Override
     public MessagePayload performCheck(ImmutableMultimap<String, String> requestParameters) throws Throwable {
 
-        return new MessagePayloadBuilder().withLevel(Level.UNKNOWN).withMessage(MESSAGE).create();
+        return new MessagePayloadBuilder().withLevel(Level.UNKNOWN).withMessage(MESSAGE).build();
     }
 }
