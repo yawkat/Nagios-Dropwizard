@@ -99,25 +99,23 @@ This example can be found here: `src/test/java/com/bericotech/dropwizard/nagios/
 
 ### Creating the Check Task in Nagios.
 
-Add the `check_dropwizard_task.py` to the Nagios/Icinga plugin directory.
+Add the `check_url.py` to the Nagios/Icinga plugin directory.
 
-The `check_dropwizard_task.py` accepts the following command line argument signature:
-
-`check_dropwizard_task.py <username> <password> <hostname> <port> <task> [<params>]`
+To get all of the options to `check_url.py`, execute: `python check_url.py --help`.
 
 A simple example is found in the integration tests: `PassingTask`:
 
-`python check_dropwizard_task.py admin admin localhost 11112 passing-task`
+`python check_url.py -u admin -p admin -H localhost -P 11112 -U tasks/passing-task?param1=value`
 
 Which returns:
 
 `OK - success`
 
-`params` is a query string encoded set of parameters (e.g. `p1=v1&p2=v2`).  These parameters will be made available to the task in as entries in the `ImmutableMultimap<String, String>` passed to all `NagiosCheckTask` instances.
+Parameters should be added to the relative path parameter `-U`.  These parameters will be made available to the task in as entries in the `ImmutableMultimap<String, String>` passed to all `NagiosCheckTask` instances.
 
 For example, in the integration tests, there is a task called `ParameterizedTask`.  This can be executed against a locally launched Dropwizard instance like so:
 
-`python check_dropwizard_task.py admin admin localhost 11112 parameterized-task "p1=value1&p2=value2"`
+`python check_url.py -u admin -p admin -H localhost -P 11112 -U 'tasks/parameterized-task?p1=value1&p2=value2'`
 
 Which returns:
 
