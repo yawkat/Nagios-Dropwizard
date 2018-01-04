@@ -5,7 +5,7 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 group = 'at.yawk.dropwizard-nagios'
-version = '1.0'
+version = '1.1-SNAPSHOT'
 
 ext {
     dropwizardVersion = "1.2.2"
