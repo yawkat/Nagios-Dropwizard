@@ -1,48 +1,42 @@
 package com.berico.dropwizard.nagios;
 
-
 import com.bericotech.dropwizard.nagios.HealthCheckWrapper;
 import com.bericotech.dropwizard.nagios.NagiosCheckTask;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Lists;
 import com.google.common.io.Resources;
-import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Configuration;
-import com.yammer.dropwizard.config.Environment;
-import com.yammer.metrics.core.HealthCheck;
-import org.hibernate.validator.constraints.NotEmpty;
-
+import io.dropwizard.Application;
+import io.dropwizard.Configuration;
+import io.dropwizard.ConfiguredBundle;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import java.util.List;
+import org.hibernate.validator.constraints.NotEmpty;
 
-public class TestService extends Service<TestService.TestConfiguration> {
-
-
-    @Override
-    public void initialize(Bootstrap<TestConfiguration> testConfigurationBootstrap) {}
+public class TestService extends Application<TestService.TestConfiguration> {
 
     @Override
     public void run(TestConfiguration configuration, Environment environment) throws Exception {
 
         for (NagiosCheckTask checkTask : configuration.getCheckTasks()){
 
-            environment.addTask(checkTask);
+            environment.admin().addTask(checkTask);
         }
 
-        for (HealthCheck healthCheck : configuration.getWrappedCheckTasks()){
+        for (HealthCheckWrapper healthCheck : configuration.getWrappedCheckTasks()) {
 
-            environment.addHealthCheck(healthCheck);
+            environment.healthChecks().register(healthCheck.getName(), healthCheck);
         }
 
-        environment.addResource(FakeResource.class);
+        environment.jersey().register(FakeResource.class);
     }
 
     public static void main(String[] args) throws Exception {
 
-        new TestService().run(new String[]{"server", Resources.getResource("server.yml").getPath()});
+        new TestService().run("server", Resources.getResource("server.yml").getPath());
     }
 
     /**
@@ -79,9 +73,9 @@ public class TestService extends Service<TestService.TestConfiguration> {
             return tasks;
         }
 
-        public List<HealthCheck> getWrappedCheckTasks(){
+        public List<HealthCheckWrapper> getWrappedCheckTasks() {
 
-            List<HealthCheck> tasks = Lists.newArrayList();
+            List<HealthCheckWrapper> tasks = Lists.newArrayList();
 
             for (String clazz : wrappedCheckTasks){
 

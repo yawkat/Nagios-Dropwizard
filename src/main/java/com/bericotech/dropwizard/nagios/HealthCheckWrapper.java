@@ -1,7 +1,7 @@
 package com.bericotech.dropwizard.nagios;
 
+import com.codahale.metrics.health.HealthCheck;
 import com.google.common.collect.ImmutableMultimap;
-import com.yammer.metrics.core.HealthCheck;
 
 public class HealthCheckWrapper extends HealthCheck {
 
@@ -11,17 +11,17 @@ public class HealthCheckWrapper extends HealthCheck {
 
     public HealthCheckWrapper(NagiosCheckTask checkTask) {
 
-        super(checkTask.getName());
-
         this.checkTask = checkTask;
     }
 
     public HealthCheckWrapper(NagiosCheckTask checkTask, ImmutableMultimap<String, String> params) {
 
-        super(checkTask.getName());
-
         this.checkTask = checkTask;
         this.params = params;
+    }
+
+    public String getName() {
+        return checkTask.getName();
     }
 
     @Override

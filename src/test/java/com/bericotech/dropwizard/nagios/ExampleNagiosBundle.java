@@ -1,8 +1,8 @@
 package com.bericotech.dropwizard.nagios;
 
-import com.yammer.dropwizard.Bundle;
-import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Environment;
+import io.dropwizard.Bundle;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
 
 /**
  * Demonstrates how you might add Nagios HealthChecks
@@ -18,6 +18,6 @@ public class ExampleNagiosBundle implements Bundle {
     @Override
     public void run(Environment environment) {
 
-        environment.addTask(new ExampleNagiosCheckTask());
+        environment.admin().addTask(new ExampleNagiosCheckTask());
     }
 }

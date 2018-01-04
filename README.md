@@ -1,3 +1,15 @@
+This is a fork of the original Dropwizard-Nagios project, updated for dropwizard 1.2.2 and deployed to maven central. It is available under the following coordinates:
+
+```
+<dependency>
+    <groupId>at.yawk.dropwizard-nagios</groupId>
+    <artifactId>dropwizard-nagios</artifactId>
+    <version>1.0</version>
+</dependency>
+``` 
+
+---
+
 # Dropwizard-Nagios
 
 Extends Dropwizard's `Task` component to return Nagios-formatted healthchecks.

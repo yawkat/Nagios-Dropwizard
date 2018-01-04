@@ -3,8 +3,7 @@ package com.bericotech.dropwizard.nagios;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMultimap;
-import com.yammer.dropwizard.tasks.Task;
-
+import io.dropwizard.servlets.tasks.Task;
 import java.io.PrintWriter;
 
 /**
